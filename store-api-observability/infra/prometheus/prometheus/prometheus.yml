@@ -4,6 +4,8 @@ scrape_configs:
     metrics_path: '/actuator/prometheus'
     scrape_interval: 3s
     static_configs:
-      - targets: ['host.docker.internal:8080']
+      - targets:
+            - 'orders:8080'  # Container "orders"
+            - 'products:8080'  # Container "products"
         labels:
           application: 'store-api'

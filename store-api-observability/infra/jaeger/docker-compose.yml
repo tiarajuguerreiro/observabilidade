@@ -6,3 +6,10 @@ services:
     ports:
       - "16686:16686" # the jaeger UI
       - "4318:4318"
+    networks:
+      - minha_rede
+
+networks:
+  minha_rede:
+    name: minha_rede
+    external: true

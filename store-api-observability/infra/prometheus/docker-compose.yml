@@ -11,6 +11,8 @@ services:
     volumes:
       - ./prometheus:/etc/prometheus
       - prom_data:/prometheus
+    networks:
+      - minha_rede
 
   grafana:
     image: grafana/grafana
@@ -23,6 +25,8 @@ services:
       - GF_SECURITY_ADMIN_PASSWORD=grafana
     volumes:
       - ./grafana:/etc/grafana/provisioning/datasources
+    networks:
+      - minha_rede
 
   pushgateway:
     image: prom/pushgateway
@@ -34,6 +38,8 @@ services:
       - "9091:9091"
     labels:
       org.label-schema.group: "monitoring"
+    networks:
+      - minha_rede
 
   alertmanager:
     image: prom/alertmanager
@@ -44,7 +50,14 @@ services:
       - "./alertmanager:/config"
       - alertmanager-data:/data
     command: --config.file=/config/alertmanager.yml --log.level=debug
+    networks:
+      - minha_rede
 
 volumes:
   prom_data:
   alertmanager-data:
+
+networks:
+  minha_rede:
+    name: minha_rede
+    external: true
